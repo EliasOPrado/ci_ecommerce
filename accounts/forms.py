@@ -8,6 +8,9 @@ class UserLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+    def __str__(self):
+        return self.username
+
 
 class UserRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
