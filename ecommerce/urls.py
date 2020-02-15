@@ -1,5 +1,4 @@
 """ecommerce URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
 Examples:
@@ -15,7 +14,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-#you need 'as' to have different url names
 from accounts import urls as urls_accounts
 from products import urls as urls_products
 from products.views import all_products
@@ -24,8 +22,8 @@ from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', all_products, name="index"),
-    url(r'^accounts/', include(urls_accounts)), #this url pattern uses regex, do not use '$'
-    url(r'^products/', include(urls_products)), #this url patternuses regex, do not use '$'
-    url(r'^media/(?P<path>.*)$', static.serve, {'document_root':MEDIA_ROOT}),
+    url(r'^$', all_products, name='index'),
+    url(r'^accounts/', include(urls_accounts)),
+    url(r'^products/', include(urls_products)),
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT})
 ]
