@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'checkout',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -139,8 +140,21 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000'
+}
 
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+AWS_STORAGE_BUCKET_NAME = 'shopping-cart-ci'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_SECRET_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -148,3 +162,4 @@ MEDIA_URL = '/media/'
 """ADD ENV TO AVOID SHOWING THE REAL KEYS """
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = os.getenv('STRIPE_SECRET')
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
