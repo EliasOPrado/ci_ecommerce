@@ -14,9 +14,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 """allow access to the emv.py file"""
-import env
+if os.path.exists('env.py'):
+    import env
 """To connect to database through url """
 import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -162,3 +164,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 """ADD ENV TO AVOID SHOWING THE REAL KEYS """
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = os.getenv('STRIPE_SECRET')
+
+django_heroku.setthings(local())
